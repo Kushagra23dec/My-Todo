@@ -19,7 +19,7 @@ exports.signup = async (req, res) => {
 
       {
         algorithm: "RS256",
-        expiresIn: 60,
+        expiresIn: 60 * 60,
       }
     );
 
@@ -28,7 +28,7 @@ exports.signup = async (req, res) => {
 
     console.log(token);
 
-    res.json({ email: req.body.email, "access-token": token });
+    res.json({ email: req.body.email, access_token: token });
   } catch (err) {
     console.log(err);
     res.send(err);
@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
 
         {
           algorithm: "RS256",
-          expiresIn: 60,
+          expiresIn: 60 * 60,
         }
       );
 
@@ -57,7 +57,7 @@ exports.login = async (req, res) => {
       console.log(token);
 
       console.log(doc);
-      res.json({ email: req.body.email, "access-token": token });
+      res.json({ email: req.body.email, access_token: token });
     } else {
       res.sendStatus(401);
     }

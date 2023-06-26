@@ -10,7 +10,17 @@ exports.getAllTodos = async (req, res) => {
 };
 
 // Reading Todo by id...
-exports.getTodoById = async (req, res) => {};
+exports.getTodoById = async (req, res) => {
+  try {
+    let doc = await Todo.findById(req?.params?.id);
+
+    console.log(doc);
+    res.send(doc);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};
 
 // creating todo...
 exports.createTodo = async (req, res) => {
@@ -27,7 +37,28 @@ exports.createTodo = async (req, res) => {
 };
 
 // Updating todo...
-exports.updateTodo = async (req, res) => {};
+exports.updateTodo = async (req, res) => {
+  const id = req?.params?.id;
+  try {
+    let doc = await Todo.findOneAndUpdate({ _id: id }, req.body, { new: true });
+    console.log(doc);
+
+    res.send(doc);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};
 
 // deleting todo....
-exports.deleteTodo = async (req, res) => {};
+exports.deleteTodo = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let doc = await Todo.findOneAndDelete({ _id: id });
+    console.log(doc);
+    res.send(doc);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};

@@ -5,6 +5,9 @@ const router = express.Router();
 
 router
   .get("/", todoController.getAllTodos)
-  .post("/", todoController.createTodo);
+  .get("/:id", todoController.getTodoById)
+  .post("/", todoController.createTodo)
+  .patch("/:id", todoController.updateTodo)
+  .delete("/:id", todoController.deleteTodo);
 
 exports.router = router;

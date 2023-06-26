@@ -23,8 +23,8 @@ const router = express.Router();
 // middlewares
 app.use(express.json());
 
-app.use("/auth", userRouter.router);
-app.use("/", authorization, todoRouter.router);
+app.use("/oauth", userRouter.router);
+app.use("/todo", authorization, todoRouter.router);
 
 app.listen(8080, () => {
   console.log("server started");
