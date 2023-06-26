@@ -1,7 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const todoRouter = require("./routes/todo");
+const userRouter = require("./routes/user");
+const cors = require("cors");
+const auth = require("./auth");
 
+const authorization = auth.authorization;
 // creating database connection....
 
 main().catch((err) => console.log(err));
@@ -13,16 +18,13 @@ async function main() {
 }
 
 const app = express();
+app.use(cors());
 const router = express.Router();
 // middlewares
 app.use(express.json());
 
-app.use("/", todoRouter.router);
-
-
-
-
-
+app.use("/auth", userRouter.router);
+app.use("/", authorization, todoRouter.router);
 
 app.listen(8080, () => {
   console.log("server started");
