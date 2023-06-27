@@ -6,8 +6,12 @@ const User = userModel.User;
 exports.getAllTodos = async (req, res) => {
   try {
     const email = req.email;
-    const doc = await Todo.find().where({ email: email });
-    res.send(doc);
+    // const doc = await Todo.find().where({ email: email });
+    let doc2 = await User.find({ email: email }).populate("todoList").exec();
+
+    console.log(doc2[0]?.todoList);
+
+    res.send(doc2[0]?.todoList);
   } catch (err) {
     console.log(err);
     res.sendStatus(404);
@@ -19,9 +23,13 @@ exports.getTodoById = async (req, res) => {
   try {
     const email = req.email;
     let doc = await Todo.findById(req?.params?.id).where({ email: email });
+    if(doc){
 
-    console.log(doc);
-    res.send(doc);
+      console.log(doc);
+      res.send(doc);
+    }else{
+      res.sendStatus(404);
+    }
   } catch (err) {
     console.log(err);
     res.send(err);
