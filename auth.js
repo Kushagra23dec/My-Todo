@@ -2,16 +2,16 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
 
-const publicKey = fs.readFileSync(
-  path.resolve(__dirname, "./public.key"),
-  "utf-8"
-);
+// const publicKey = fs.readFileSync(
+//   path.resolve(__dirname, "./public.key"),
+//   "utf-8"
+// );
 
 exports.authorization = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
-    let decoded = jwt.verify(token, publicKey);
+    let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.email = decoded?.email;
     console.log(decoded);
     next();
