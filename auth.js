@@ -12,7 +12,7 @@ exports.authorization = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
 
     let decoded = jwt.verify(token, publicKey);
-    req.user = decoded?.userName;
+    req.email = decoded?.email;
     console.log(decoded);
     next();
   } catch (err) {

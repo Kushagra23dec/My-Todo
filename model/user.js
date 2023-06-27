@@ -6,6 +6,8 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   refreshToken: { type: String },
+  todoList: [{ type: Schema.Types.ObjectId, ref: "Todo" }],
 });
 
 exports.User = mongoose.model("User", userSchema);
+
