@@ -4,10 +4,10 @@ const path = require("path");
 const User = model.User;
 const fs = require("fs");
 
-const privateKey = fs.readFileSync(
-  path.resolve(__dirname, "..", "private.key"),
-  "utf-8"
-);
+// const privateKey = fs.readFileSync(
+//   path.resolve(__dirname, "..", "private.key"),
+//   "utf-8"
+// );
 
 // signup
 exports.signup = async (req, res) => {
@@ -17,10 +17,9 @@ exports.signup = async (req, res) => {
     // access Token
     const accessToken = jwt.sign(
       { username: req.body.username, email: req.body.email },
-      privateKey,
+      process.env.ACCESS_TOKEN_SECRET,
 
       {
-        algorithm: "RS256",
         expiresIn: 30 * 60,
       }
     );
@@ -28,10 +27,9 @@ exports.signup = async (req, res) => {
     // refresh Token
     const refreshToken = jwt.sign(
       { username: req.body.username, email: req.body.email },
-      privateKey,
+      process.env.REFRESH_TOKEN_SECRET,
 
       {
-        algorithm: "RS256",
         expiresIn: 60 * 60,
       }
     );
@@ -62,10 +60,9 @@ exports.login = async (req, res) => {
     // access Token
     const accessToken = jwt.sign(
       { username: req.body.username, email: req.body.email },
-      privateKey,
+      process.env.ACCESS_TOKEN_SECRET,
 
       {
-        algorithm: "RS256",
         expiresIn: 30 * 60,
       }
     );
@@ -73,10 +70,9 @@ exports.login = async (req, res) => {
     // refresh Token
     const refreshToken = jwt.sign(
       { username: req.body.username, email: req.body.email },
-      privateKey,
+      process.env.REFRESH_TOKEN_SECRET,
 
       {
-        algorithm: "RS256",
         expiresIn: 60 * 60,
       }
     );

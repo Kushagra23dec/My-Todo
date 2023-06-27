@@ -9,7 +9,6 @@ const path = require("path");
 
 const authorization = auth.authorization;
 
-
 // db connection
 main().catch((err) => console.log(err));
 
