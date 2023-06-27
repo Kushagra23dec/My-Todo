@@ -5,16 +5,18 @@ const todoRouter = require("./routes/todo");
 const userRouter = require("./routes/user");
 const cors = require("cors");
 const auth = require("./auth");
+const path = require("path");
 
 const authorization = auth.authorization;
-// creating database connection....
 
+
+// db connection
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/todo");
-  console.log("Database connected");
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+  await mongoose.connect(process.env.MONGO_URL);
+
+  console.log("database connected");
 }
 
 const app = express();
@@ -22,10 +24,16 @@ app.use(cors());
 const router = express.Router();
 // middlewares
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "dist")));
 
 app.use("/oauth", userRouter.router);
 app.use("/todo", authorization, todoRouter.router);
+app.use("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+});
 
-app.listen(8080, () => {
-  console.log("server started");
+// starting the server
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`listening at ${port}`);
 });

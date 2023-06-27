@@ -1,0 +1,46 @@
+{
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/todo",
+      "dest": "index.js"
+    },
+    {
+      "src": "/todo/(.*)",
+      "dest": "index.js"
+    },
+    {
+      "src": "/oauth/login",
+      "dest": "index.js"
+    },
+    {
+      "src": "/oauth/signup",
+      "dest": "index.js"
+    },
+    {
+      "src": "/",
+      "dest": "dist/index.html"
+    },
+    {
+      "src": "/createtodo",
+      "dest": "dist/index.html"
+    },
+    {
+      "src": "/opentodo/(.*)",
+      "dest": "dist/index.html"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "dist/$1"
+    }
+  ]
+}
