@@ -35,6 +35,14 @@
       "dest": "dist/index.html"
     },
     {
+      "src": "/login",
+      "dest": "dist/index.html"
+    },
+    {
+      "src": "/signup",
+      "dest": "dist/index.html"
+    },
+    {
       "src": "/opentodo/(.*)",
       "dest": "dist/index.html"
     },
