@@ -47,7 +47,7 @@ exports.signup = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.send(err);
+    res.status(409).json(err);
   }
 };
 
@@ -86,7 +86,6 @@ exports.login = async (req, res) => {
         { refreshToken: refreshToken }
       );
 
-      console.log(userExist);
       res.json({
         username: doc?.username,
         email: req.body.email,
@@ -98,6 +97,6 @@ exports.login = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(401).send(err);
+    res.status(401).json(err);
   }
 };
